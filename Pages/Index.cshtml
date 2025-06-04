@@ -1,0 +1,46 @@
+﻿@page
+@model aspNet_kt2.Pages.IndexModel
+@{
+    ViewData["Title"] = "Professional WYSIWYG Editor";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Professional Text Editor</h1>
+
+    <form method="post">
+        <textarea id="editor" name="TextContent">@Html.Raw(Model.TextContent)</textarea>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="fas fa-save"></i> Save Content
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#editor',
+            plugins: 'advlist autolink lists link image charmap preview anchor ' +
+                'searchreplace visualblocks code fullscreen ' +
+                'insertdatetime media table help wordcount',
+            toolbar: 'undo redo | blocks | bold italic underline strikethrough | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image media | ' +
+                'forecolor backcolor removeformat | help',
+            height: 500,
+            menubar: 'file edit view insert format tools table help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+            license_key: 'free',
+            promotion: false 
+        });
+    </script>
+}
